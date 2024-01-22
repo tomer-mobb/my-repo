@@ -1,12 +1,12 @@
 # Mobb/CodeQL Fixer on pull requests
-# This workflow defines the needed steps to run CodeQL on every pull request and 
-# pass the results to Mobb Fixer.
+# This workflow defines the needed steps to run CodeQL on every pull request and pass the results to Mobb Fixer.
+# This example utilizes CodeQL with JavaScript. For other languages, change the CodeQL language settings below.
 #
 # Secrets in use:
 # MOBB_API_TOKEN - your mobb user credentials (autumatially set if you forked this repo via the Mobb app)
 # GITHUB_TOKEN - automatically set by GitHub
 
-name: "Mobb / CodeQL"
+name: "Mobb/CodeQL"
 
 on:
   pull_request:
@@ -18,9 +18,6 @@ jobs:
     runs-on: 'ubuntu-latest'
     timeout-minutes: 360
     permissions:
-      actions: write
-      checks: write
-      contents: write
       pull-requests: write
       statuses: write
 
@@ -48,7 +45,7 @@ jobs:
 
       - name: Run Mobb on the findings and get fixes
         if: always()
-        uses: mobb-dev/action@beta0.0.4
+        uses: mobb-dev/action/review@beta0.0.5
         with:
           report-file: results/${{ matrix.codeql_output_filename }}
           api-key: ${{ secrets.MOBB_API_TOKEN }}
